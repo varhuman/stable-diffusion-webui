@@ -233,9 +233,9 @@ def webui():
 
         modules.progress.setup_progress_api(app)
 
-        if launch_api:
-            create_api(app)
-
+        # if launch_api:
+        create_api(app)
+        #直接开启api
         ui_extra_networks.add_pages_to_demo(app)
 
         modules.script_callbacks.app_started_callback(shared.demo, app)

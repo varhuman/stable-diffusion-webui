@@ -33,3 +33,11 @@ notification.mp3
 /test/stdout.txt
 /test/stderr.txt
 /cache.json
+/python
+/git
+*.i
+*.ii
+*.gpu
+*.ptx
+*.cubin
+*.fatbin

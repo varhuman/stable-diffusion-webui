@@ -21,7 +21,6 @@ def wrap_queued_call(func):
 
 def wrap_gradio_gpu_call(func, extra_outputs=None):
     def f(*args, **kwargs):
-
         # if the first argument is a string that says "task(...)", it is treated as a job id
         if len(args) > 0 and type(args[0]) == str and args[0][0:5] == "task(" and args[0][-1] == ")":
             id_task = args[0]
@@ -33,6 +32,8 @@ def wrap_gradio_gpu_call(func, extra_outputs=None):
             shared.state.begin()
             progress.start_task(id_task)
 
+            print("REAL INPUT:-------------------")
+            print(args)
             try:
                 res = func(*args, **kwargs)
             finally:
@@ -51,6 +52,7 @@ def wrap_gradio_call(func, extra_outputs=None, add_stats=False):
         if run_memmon:
             shared.mem_mon.monitor()
         t = time.perf_counter()
+        print("Test2")
 
         try:
             res = list(func(*args, **kwargs))
