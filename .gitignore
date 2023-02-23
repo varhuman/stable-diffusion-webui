@@ -34,9 +34,3 @@ notification.mp3
 /cache.json
 /python
 /git
-*.i
-*.ii
-*.gpu
-*.ptx
-*.cubin
-*.fatbin
