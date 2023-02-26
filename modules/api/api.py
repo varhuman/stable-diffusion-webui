@@ -150,6 +150,8 @@ class Api:
         self.add_api_route("/sdapi/v1/train/embedding", self.train_embedding, methods=["POST"], response_model=TrainResponse)
         self.add_api_route("/sdapi/v1/train/hypernetwork", self.train_hypernetwork, methods=["POST"], response_model=TrainResponse)
         self.add_api_route("/sdapi/v1/memory", self.get_memory, methods=["GET"], response_model=MemoryResponse)
+        global theDefaultApi
+        theDefaultApi = self
 
     def add_api_route(self, path: str, endpoint, **kwargs):
         if shared.cmd_opts.api_auth:

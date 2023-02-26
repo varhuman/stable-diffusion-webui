@@ -235,6 +235,7 @@ def webui():
 
         # if launch_api:
         create_api(app)
+        modules.scripts.initialize_appScripts()
         #直接开启api
         ui_extra_networks.add_pages_to_demo(app)
 

@@ -160,10 +160,16 @@ def basedir():
     """
     return current_basedir
 
+def initialize_appScripts():
+    import modules.api.api as theApi
+    for script_class, path, basedir, script_module in scripts_Apidata:
+        script = script_class()
+
 
 ScriptFile = namedtuple("ScriptFile", ["basedir", "filename", "path"])
 
 scripts_data = []
+scripts_Apidata = []
 postprocessing_scripts_data = []
 ScriptClassData = namedtuple("ScriptClassData", ["script_class", "path", "basedir", "module"])
 
@@ -211,6 +217,7 @@ def load_scripts():
     syspath = sys.path
 
     def register_scripts_from_module(module):
+        import modules.api.api as Api
         for key, script_class in module.__dict__.items():
             if type(script_class) != type:
                 continue
@@ -219,6 +226,8 @@ def load_scripts():
                 scripts_data.append(ScriptClassData(script_class, scriptfile.path, scriptfile.basedir, module))
             elif issubclass(script_class, scripts_postprocessing.ScriptPostprocessing):
                 postprocessing_scripts_data.append(ScriptClassData(script_class, scriptfile.path, scriptfile.basedir, module))
+            elif issubclass(script_class, Api.Api):
+                scripts_Apidata.append(ScriptClassData(script_class, scriptfile.path, scriptfile.basedir, module))
 
     for scriptfile in sorted(scripts_list):
         try:
