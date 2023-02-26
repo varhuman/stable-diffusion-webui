@@ -548,10 +548,6 @@ class Api:
             cuda = { 'error': f'{err}' }
         return MemoryResponse(ram = ram, cuda = cuda)
 
-    def get_Lora(self):
-        res = ["123", "324"]
-        return LoraResponse(list = res)
-
     def launch(self, server_name, port):
         self.app.include_router(self.router)
         uvicorn.run(self.app, host=server_name, port=port)
