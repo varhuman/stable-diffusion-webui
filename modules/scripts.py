@@ -278,6 +278,9 @@ class ScriptRunner:
         for script_class, path, basedir, script_module in auto_processing_scripts + scripts_data:
             script = script_class()
             script.filename = path
+
+            # get filename without extension
+            script.fileNameWithoutPath = os.path.splitext(os.path.basename(path))[0]
             script.is_txt2img = not is_img2img
             script.is_img2img = is_img2img
 
@@ -378,6 +381,17 @@ class ScriptRunner:
 
         script = self.selectable_scripts[script_index-1]
 
+        if script is None:
+            return None
+
+        script_args = args[script.args_from:script.args_to]
+        processed = script.run(p, *script_args)
+
+        shared.total_tqdm.clear()
+
+        return processed
+    
+    def runApi(self, p,script, *args):
         if script is None:
             return None
 
